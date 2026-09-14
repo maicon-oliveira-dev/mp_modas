@@ -12,3 +12,6 @@ Thumbs.db
 
 # Node, caso seja usado futuramente
 node_modules/
+
+# Assets-fonte das marcas
+assets/img/brands/source-pack/
