@@ -15,3 +15,12 @@ node_modules/
 
 # Assets-fonte das marcas
 assets/img/brands/source-pack/
+
+# Assets-fonte dos banners da home
+/assets/img/banner 01/
+/assets/img/banner 02/
+/assets/img/banner 3 masculino/
+/assets/img/banner_04_feminino/
+
+# Asset temporário da Ecko
+/logoEKO.png

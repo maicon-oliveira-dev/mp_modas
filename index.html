@@ -16,6 +16,7 @@
 
     <script src="assets/js/main.js" defer></script>
     <script src="assets/js/menu.js" defer></script>
+    <script src="assets/js/hero-carousel.js" defer></script>
 </head>
 <body>
     <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
@@ -62,7 +63,72 @@
     </header>
 
     <main id="main-content" tabindex="-1">
+        <section class="brands-strip" aria-labelledby="brands-title">
+            <div class="container brands-strip__inner">
+                <div class="brands-strip__header">
+                    <h2 class="brands-strip__title visually-hidden" id="brands-title">Marcas</h2>
+                </div>
+
+                <div class="brands-strip__viewport">
+                    <div class="brands-strip__track">
+                        <ul class="brands-strip__group">
+                        <li class="brands-strip__item"><img class="brands-strip__logo brands-strip__logo--levis" src="assets/img/brands/web/levis.png" alt="Levi's" width="706" height="388" loading="lazy"></li>
+                        <li class="brands-strip__item"><img class="brands-strip__logo" src="assets/img/brands/web/mcd.png" alt="MCD" width="590" height="200" loading="lazy"></li>
+                        <li class="brands-strip__item"><img class="brands-strip__logo" src="assets/img/brands/web/colcci.png" alt="Colcci" width="662" height="202" loading="lazy"></li>
+                        <li class="brands-strip__item"><img class="brands-strip__logo" src="assets/img/brands/web/lee.png" alt="Lee" width="430" height="229" loading="lazy"></li>
+                        <li class="brands-strip__item"><img class="brands-strip__logo" src="assets/img/brands/web/red-nose.png" alt="Red Nose" width="314" height="180" loading="lazy"></li>
+                        <li class="brands-strip__item"><img class="brands-strip__logo" src="assets/img/brands/web/hd.png" alt="HD" width="485" height="196" loading="lazy"></li>
+                        <li class="brands-strip__item"><img class="brands-strip__logo" src="assets/img/brands/web/calvin-klein.png" alt="Calvin Klein" width="590" height="137" loading="lazy"></li>
+                        <li class="brands-strip__item"><img class="brands-strip__logo brands-strip__logo--ecko" src="assets/img/brands/web/ecko.png" alt="Ecko" width="735" height="585" loading="lazy"></li>
+                        <li class="brands-strip__item"><img class="brands-strip__logo brands-strip__logo--ogochi" src="assets/img/brands/web/ogochi.png" alt="Ogochi" width="512" height="480" loading="lazy"></li>
+                        <li class="brands-strip__item"><img class="brands-strip__logo brands-strip__logo--young-style" src="assets/img/brands/web/young-style.png" alt="Young Style" width="1522" height="594" loading="lazy"></li>
+                        </ul>
+                        <ul class="brands-strip__group" aria-hidden="true">
+                            <li class="brands-strip__item"><img class="brands-strip__logo brands-strip__logo--levis" src="assets/img/brands/web/levis.png" alt="Levi's" width="706" height="388" loading="lazy"></li>
+                            <li class="brands-strip__item"><img class="brands-strip__logo" src="assets/img/brands/web/mcd.png" alt="MCD" width="590" height="200" loading="lazy"></li>
+                            <li class="brands-strip__item"><img class="brands-strip__logo" src="assets/img/brands/web/colcci.png" alt="Colcci" width="662" height="202" loading="lazy"></li>
+                            <li class="brands-strip__item"><img class="brands-strip__logo" src="assets/img/brands/web/lee.png" alt="Lee" width="430" height="229" loading="lazy"></li>
+                            <li class="brands-strip__item"><img class="brands-strip__logo" src="assets/img/brands/web/red-nose.png" alt="Red Nose" width="314" height="180" loading="lazy"></li>
+                            <li class="brands-strip__item"><img class="brands-strip__logo" src="assets/img/brands/web/hd.png" alt="HD" width="485" height="196" loading="lazy"></li>
+                            <li class="brands-strip__item"><img class="brands-strip__logo" src="assets/img/brands/web/calvin-klein.png" alt="Calvin Klein" width="590" height="137" loading="lazy"></li>
+                            <li class="brands-strip__item"><img class="brands-strip__logo brands-strip__logo--ecko" src="assets/img/brands/web/ecko.png" alt="Ecko" width="735" height="585" loading="lazy"></li>
+                            <li class="brands-strip__item"><img class="brands-strip__logo brands-strip__logo--ogochi" src="assets/img/brands/web/ogochi.png" alt="Ogochi" width="512" height="480" loading="lazy"></li>
+                            <li class="brands-strip__item"><img class="brands-strip__logo brands-strip__logo--young-style" src="assets/img/brands/web/young-style.png" alt="Young Style" width="1522" height="594" loading="lazy"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- As seções institucionais da MP Modas serão incluídas nas próximas etapas. -->
+        <section class="hero" aria-label="Destaques MP Modas" aria-roledescription="carrossel">
+            <div class="hero__track">
+                <article class="hero__slide hero__slide--masculino is-active" data-hero-slide data-controls-theme="light" aria-roledescription="slide" aria-label="1 de 4">
+                    <img class="hero__image" src="assets/img/hero/hero-masculino-marcas.png" alt="Sele&ccedil;&atilde;o masculina MP Modas" width="1672" height="941" fetchpriority="high" decoding="async">
+                    <div class="hero__overlay" aria-hidden="true"></div>
+                    <div class="container hero__content"><p class="hero__eyebrow">Sele&ccedil;&atilde;o masculina</p><h2 class="hero__title">Atitude em cada escolha.</h2><p class="hero__text">Marcas, estilo e identidade reunidos pela curadoria MP.</p><a class="button hero__cta" href="pages/masculino.html">Ver masculino</a></div>
+                </article>
+                <article class="hero__slide hero__slide--feminino" data-hero-slide data-controls-theme="light" aria-roledescription="slide" aria-label="2 de 4" aria-hidden="true" inert>
+                    <img class="hero__image" src="assets/img/hero/hero-feminino-marcas.png" alt="Sele&ccedil;&atilde;o feminina MP Modas" width="1672" height="941" fetchpriority="low" decoding="async">
+                    <div class="hero__overlay" aria-hidden="true"></div>
+                    <div class="container hero__content"><p class="hero__eyebrow">Sele&ccedil;&atilde;o feminina</p><h2 class="hero__title">Estilo que acompanha voc&ecirc;.</h2><p class="hero__text">Jeans, casual e conforto em uma sele&ccedil;&atilde;o feita pela MP.</p><a class="button hero__cta" href="pages/feminino.html">Ver feminino</a></div>
+                </article>
+                <article class="hero__slide hero__slide--oceano" data-hero-slide data-controls-theme="light" aria-roledescription="slide" aria-label="3 de 4" aria-hidden="true" inert>
+                    <img class="hero__image" src="assets/img/hero/hero-oceano-praia.png" alt="Modelo usando camiseta Oceano em cen&aacute;rio de praia" width="1672" height="941" fetchpriority="low" decoding="async">
+                    <div class="hero__overlay" aria-hidden="true"></div>
+                    <div class="container hero__content"><p class="hero__eyebrow">Sele&ccedil;&atilde;o Oceano</p><h2 class="hero__title">Liberdade em movimento.</h2><p class="hero__text">Surf, estilo e leveza em uma sele&ccedil;&atilde;o feita pela MP.</p><a class="button hero__cta" href="pages/masculino.html">Ver masculino</a></div>
+                </article>
+                <article class="hero__slide hero__slide--feminino-editorial" data-hero-slide data-controls-theme="dark" aria-roledescription="slide" aria-label="4 de 4" aria-hidden="true" inert>
+                    <img class="hero__image" src="assets/img/hero/hero-feminino-editorial.png" alt="Modelo em look feminino casual com jeans" width="1672" height="941" fetchpriority="low" decoding="async">
+                    <div class="hero__overlay" aria-hidden="true"></div>
+                    <div class="container hero__content"><p class="hero__eyebrow">Sele&ccedil;&atilde;o feminina</p><h2 class="hero__title">Essencial, leve, atual.</h2><p class="hero__text">Jeans e casual para acompanhar todos os momentos.</p><a class="button hero__cta" href="pages/feminino.html">Ver feminino</a></div>
+                </article>
+            </div>
+            <div class="hero__controls" aria-label="Controles do carrossel">
+                <button class="hero__control" type="button" data-hero-previous aria-label="Slide anterior">&larr;</button>
+                <div class="hero__pagination" aria-label="Selecione um slide"><button class="hero__indicator" type="button" data-hero-indicator="0" aria-label="Ir para slide 1" aria-current="true">01</button><span aria-hidden="true">/</span><button class="hero__indicator" type="button" data-hero-indicator="1" aria-label="Ir para slide 2">02</button><span aria-hidden="true">/</span><button class="hero__indicator" type="button" data-hero-indicator="2" aria-label="Ir para slide 3">03</button><span aria-hidden="true">/</span><button class="hero__indicator" type="button" data-hero-indicator="3" aria-label="Ir para slide 4">04</button></div>
+                <button class="hero__control" type="button" data-hero-next aria-label="Pr&oacute;ximo slide">&rarr;</button>
+            </div>
+        </section>
     </main>
 
     <footer class="site-footer">

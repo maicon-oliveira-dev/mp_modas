@@ -1,1 +1,377 @@
 /* Estilos específicos da página inicial serão adicionados nas próximas etapas. */
+
+.brands-strip {
+    position: relative;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+    background: var(--color-surface);
+    color: var(--color-ink);
+}
+
+.brands-strip::after {
+    position: absolute;
+    bottom: -1px;
+    left: max(var(--container-gutter), calc((100% - var(--container-max)) / 2));
+    width: 3rem;
+    height: 2px;
+    background: var(--color-brand-green);
+    content: "";
+}
+
+.brands-strip__inner {
+    padding-block: var(--space-2);
+}
+
+.brands-strip__header {
+    margin: 0;
+}
+
+.brands-strip__title {
+    margin: 0;
+}
+
+.brands-strip__viewport {
+    overflow: hidden;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 1rem, #000 calc(100% - 1rem), transparent);
+    mask-image: linear-gradient(to right, transparent, #000 1rem, #000 calc(100% - 1rem), transparent);
+}
+
+.brands-strip__viewport::-webkit-scrollbar {
+    display: none;
+}
+
+.brands-strip__track {
+    display: flex;
+    width: max-content;
+    animation: brands-strip-marquee 42s linear infinite;
+    will-change: transform;
+}
+
+.brands-strip__group {
+    display: flex;
+    flex: 0 0 auto;
+    gap: var(--space-2);
+    padding-right: var(--space-2);
+}
+
+.brands-strip__item {
+    display: grid;
+    width: clamp(6.875rem, 35vw, 8.4375rem);
+    height: 3.75rem;
+    place-items: center;
+    scroll-snap-align: start;
+}
+
+.brands-strip__logo {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 2.25rem;
+    object-fit: contain;
+}
+
+.brands-strip__logo--levis {
+    max-width: 4.5rem;
+}
+
+.brands-strip__logo--ecko,
+.brands-strip__logo--ogochi {
+    max-width: 3.25rem;
+}
+
+.brands-strip__logo--young-style {
+    max-width: 7rem;
+}
+
+.brands-strip:hover .brands-strip__track,
+.brands-strip:focus-within .brands-strip__track {
+    animation-play-state: paused;
+}
+
+@keyframes brands-strip-marquee {
+    from {
+        transform: translateX(-50%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .brands-strip__viewport {
+        overflow-x: auto;
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+
+    .brands-strip__track {
+        animation: none;
+        transform: none;
+    }
+
+    .brands-strip__group[aria-hidden="true"] {
+        display: none;
+    }
+}
+
+@media (min-width: 64rem) {
+    .brands-strip::after {
+        width: 4rem;
+    }
+
+    .brands-strip__inner {
+        padding-block: var(--space-3);
+    }
+
+    .brands-strip__item {
+        width: clamp(8.125rem, 11vw, 10.3125rem);
+        height: 4.5rem;
+    }
+
+    .brands-strip__logo {
+        max-height: 2.625rem;
+    }
+
+    .brands-strip__logo--levis {
+        max-width: 5.25rem;
+    }
+
+    .brands-strip__logo--ecko,
+    .brands-strip__logo--ogochi {
+        max-width: 3.75rem;
+    }
+
+    .brands-strip__logo--young-style {
+        max-width: 8.5rem;
+    }
+}
+
+.hero {
+    position: relative;
+    min-height: clamp(32.5rem, 78vh, 38rem);
+    overflow: hidden;
+    background: var(--color-brand-black);
+}
+
+.hero__track,
+.hero__slide {
+    min-height: inherit;
+}
+
+.hero__track {
+    position: relative;
+}
+
+.hero__slide {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(2rem);
+    transition: opacity 720ms ease, transform 720ms ease;
+}
+
+.hero__slide.is-active {
+    z-index: 1;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+}
+
+.hero__image,
+.hero__overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero__image {
+    object-fit: cover;
+    object-position: 62% center;
+}
+
+.hero__slide--feminino .hero__image {
+    object-position: 34% center;
+}
+
+.hero__overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.76), rgba(0, 0, 0, 0.06) 58%);
+}
+
+.hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-bottom: 7rem;
+    color: var(--color-ink-inverse);
+}
+
+.hero__eyebrow {
+    margin-bottom: var(--space-3);
+    color: var(--color-brand-green);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.hero__title {
+    max-width: 10ch;
+    font-size: clamp(2.5rem, 11vw, 4.25rem);
+}
+
+.hero__text {
+    max-width: 31rem;
+    margin-top: var(--space-4);
+}
+
+.hero__cta {
+    margin-top: var(--space-5);
+}
+
+.hero__controls {
+    position: absolute;
+    z-index: 2;
+    bottom: var(--space-4);
+    left: max(var(--container-gutter), calc((100% - var(--container-max)) / 2));
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-ink-inverse);
+}
+
+.hero__control,
+.hero__indicator {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    border: 1px solid currentColor;
+    background: transparent;
+    color: inherit;
+}
+
+.hero__indicator {
+    min-width: auto;
+    padding-inline: var(--space-2);
+    border-color: transparent;
+    color: var(--color-ink-inverse-muted);
+    font-size: var(--text-sm);
+    font-weight: 700;
+}
+
+.hero__indicator[aria-current="true"] {
+    color: var(--color-brand-green);
+}
+
+.hero__pagination {
+    display: flex;
+    align-items: center;
+    color: var(--color-ink-inverse-muted);
+}
+
+.hero__control:hover,
+.hero__control:focus-visible {
+    border-color: var(--color-brand-green);
+    color: var(--color-brand-green);
+}
+
+.hero[data-controls-theme="dark"] .hero__controls {
+    color: var(--color-ink);
+}
+
+.hero[data-controls-theme="dark"] .hero__control {
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+.hero[data-controls-theme="dark"] .hero__indicator,
+.hero[data-controls-theme="dark"] .hero__pagination {
+    color: var(--color-ink-muted);
+}
+
+.hero[data-controls-theme="dark"] .hero__indicator[aria-current="true"],
+.hero[data-controls-theme="dark"] .hero__control:hover,
+.hero[data-controls-theme="dark"] .hero__control:focus-visible {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero__slide {
+        transition-duration: 0.01ms;
+        transform: none;
+    }
+}
+
+@media (min-width: 48rem) {
+    .hero {
+        min-height: clamp(38.75rem, 52vw, 47.5rem);
+    }
+
+    .hero__image {
+        object-position: center;
+    }
+
+    .hero__slide--masculino .hero__overlay {
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.16) 47%, transparent 66%);
+    }
+
+    .hero__slide--feminino .hero__overlay {
+        background: linear-gradient(to left, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.2) 48%, transparent 68%);
+    }
+
+    .hero__content {
+        justify-content: center;
+        padding-bottom: 0;
+    }
+
+    .hero__slide--feminino .hero__content {
+        align-items: flex-end;
+        color: var(--color-ink);
+        text-align: right;
+    }
+
+    .hero__title {
+        font-size: clamp(3.25rem, 5.5vw, 5.5rem);
+    }
+
+    .hero__controls {
+        bottom: var(--space-5);
+    }
+}
+.hero__slide--oceano .hero__image {
+    object-position: 62% center;
+}
+
+.hero__slide--oceano .hero__overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.64), rgba(0, 0, 0, 0.04) 60%);
+}
+
+.hero__slide--feminino-editorial .hero__image {
+    object-position: 60% center;
+}
+
+.hero__slide--feminino-editorial .hero__overlay {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.08) 62%);
+}
+
+.hero__slide--feminino-editorial .hero__content {
+    color: var(--color-ink);
+}
+
+@media (min-width: 48rem) {
+    .hero__slide--oceano .hero__overlay {
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.08) 49%, transparent 67%);
+    }
+
+    .hero__slide--feminino-editorial .hero__overlay {
+        background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.22) 49%, transparent 67%);
+    }
+}
