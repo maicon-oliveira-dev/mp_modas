@@ -10,12 +10,12 @@
     const slides = Array.from(hero.querySelectorAll("[data-hero-slide]"));
     const previousButton = hero.querySelector("[data-hero-previous]");
     const nextButton = hero.querySelector("[data-hero-next]");
-    const indicators = Array.from(hero.querySelectorAll("[data-hero-indicator]"));
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const delay = 6000;
     let activeIndex = 0;
     let timerId;
-    let touchStartX = 0;
+    let touchStart;
+    const swipeThreshold = 50;
 
     function canAutoplay() {
         return !reducedMotion.matches && !document.hidden && !hero.matches(":hover") && !hero.contains(document.activeElement);
@@ -52,9 +52,6 @@
 
         hero.dataset.controlsTheme = slides[activeIndex].dataset.controlsTheme || "light";
 
-        indicators.forEach((indicator, indicatorIndex) => {
-            indicator.toggleAttribute("aria-current", indicatorIndex === activeIndex);
-        });
     }
 
     previousButton?.addEventListener("click", () => {
@@ -65,13 +62,6 @@
     nextButton?.addEventListener("click", () => {
         goTo(activeIndex + 1);
         startAutoplay();
-    });
-
-    indicators.forEach((indicator) => {
-        indicator.addEventListener("click", () => {
-            goTo(Number(indicator.dataset.heroIndicator));
-            startAutoplay();
-        });
     });
 
     hero.addEventListener("mouseenter", stopAutoplay);
@@ -92,16 +82,37 @@
         }
     });
     hero.addEventListener("touchstart", (event) => {
-        touchStartX = event.changedTouches[0].clientX;
+        const interactiveTarget = event.target instanceof Element && event.target.closest("a, button");
+
+        if (event.touches.length !== 1 || interactiveTarget) {
+            touchStart = undefined;
+            return;
+        }
+
+        const touch = event.touches[0];
+
+        touchStart = { x: touch.clientX, y: touch.clientY };
         stopAutoplay();
     }, { passive: true });
     hero.addEventListener("touchend", (event) => {
-        const distance = event.changedTouches[0].clientX - touchStartX;
-
-        if (Math.abs(distance) > 40) {
-            goTo(activeIndex + (distance < 0 ? 1 : -1));
+        if (!touchStart) {
+            return;
         }
 
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStart.x;
+        const deltaY = touch.clientY - touchStart.y;
+
+        touchStart = undefined;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) >= swipeThreshold) {
+            goTo(activeIndex + (deltaX < 0 ? 1 : -1));
+        }
+
+        startAutoplay();
+    }, { passive: true });
+    hero.addEventListener("touchcancel", () => {
+        touchStart = undefined;
         startAutoplay();
     }, { passive: true });
     document.addEventListener("visibilitychange", startAutoplay);

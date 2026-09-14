@@ -154,6 +154,7 @@
     min-height: clamp(32.5rem, 78vh, 38rem);
     overflow: hidden;
     background: var(--color-brand-black);
+    touch-action: pan-y;
 }
 
 .hero__track,
@@ -239,47 +240,38 @@
 }
 
 .hero__controls {
-    position: absolute;
+    position: static;
     z-index: 2;
-    bottom: var(--space-4);
-    left: max(var(--container-gutter), calc((100% - var(--container-max)) / 2));
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
     color: var(--color-ink-inverse);
 }
 
-.hero__control,
-.hero__indicator {
-    min-width: 2.75rem;
-    min-height: 2.75rem;
+.hero__control {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
     border: 1px solid currentColor;
-    background: transparent;
+    background: rgba(0, 0, 0, 0.08);
     color: inherit;
+    transform: translateY(-50%);
+    transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
 }
 
-.hero__indicator {
-    min-width: auto;
-    padding-inline: var(--space-2);
-    border-color: transparent;
-    color: var(--color-ink-inverse-muted);
-    font-size: var(--text-sm);
-    font-weight: 700;
+.hero__control[data-hero-previous] {
+    left: 1rem;
 }
 
-.hero__indicator[aria-current="true"] {
-    color: var(--color-brand-green);
-}
-
-.hero__pagination {
-    display: flex;
-    align-items: center;
-    color: var(--color-ink-inverse-muted);
+.hero__control[data-hero-next] {
+    right: 1rem;
 }
 
 .hero__control:hover,
 .hero__control:focus-visible {
     border-color: var(--color-brand-green);
+    background: rgba(0, 0, 0, 0.2);
     color: var(--color-brand-green);
 }
 
@@ -289,17 +281,13 @@
 
 .hero[data-controls-theme="dark"] .hero__control {
     border-color: rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.32);
 }
 
-.hero[data-controls-theme="dark"] .hero__indicator,
-.hero[data-controls-theme="dark"] .hero__pagination {
-    color: var(--color-ink-muted);
-}
-
-.hero[data-controls-theme="dark"] .hero__indicator[aria-current="true"],
 .hero[data-controls-theme="dark"] .hero__control:hover,
 .hero[data-controls-theme="dark"] .hero__control:focus-visible {
     border-color: var(--color-ink);
+    background: rgba(255, 255, 255, 0.64);
     color: var(--color-ink);
 }
 
@@ -342,8 +330,17 @@
         font-size: clamp(3.25rem, 5.5vw, 5.5rem);
     }
 
-    .hero__controls {
-        bottom: var(--space-5);
+    .hero__control {
+        width: 3.25rem;
+        height: 3.25rem;
+    }
+
+    .hero__control[data-hero-previous] {
+        left: 1.75rem;
+    }
+
+    .hero__control[data-hero-next] {
+        right: 1.75rem;
     }
 }
 .hero__slide--oceano .hero__image {
