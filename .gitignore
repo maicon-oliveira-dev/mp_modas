@@ -6,7 +6,7 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Arquivos tempor�rios
+# Arquivos temporários
 *.tmp
 *.log
 
@@ -22,5 +22,11 @@ assets/img/brands/source-pack/
 /assets/img/banner 3 masculino/
 /assets/img/banner_04_feminino/
 
-# Asset tempor�rio da Ecko
+# Assets-fonte da página A Loja
+/assets/img/loja_interna_externa/
+
+# Asset temporário da Ecko
 /logoEKO.png
+# Assets-fonte das páginas de coleções
+/assets/img/pagina_masculino/
+/assets/img/pagina_feminino/
