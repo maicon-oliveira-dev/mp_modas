@@ -77,8 +77,13 @@
 }
 
 .brands-strip__logo--ecko,
-.brands-strip__logo--ogochi {
+.brands-strip__logo--ogochi,
+.brands-strip__logo--bivik {
     max-width: 3.25rem;
+}
+
+.brands-strip__logo--ela-vive {
+    max-height: 2.5rem;
 }
 
 .brands-strip__logo--young-style {
@@ -140,8 +145,13 @@
     }
 
     .brands-strip__logo--ecko,
-    .brands-strip__logo--ogochi {
+    .brands-strip__logo--ogochi,
+    .brands-strip__logo--bivik {
         max-width: 3.75rem;
+    }
+
+    .brands-strip__logo--ela-vive {
+        max-height: 3rem;
     }
 
     .brands-strip__logo--young-style {
