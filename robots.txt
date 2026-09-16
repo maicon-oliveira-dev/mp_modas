@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maicon-oliveira-dev.github.io/mp_modas/sitemap.xml

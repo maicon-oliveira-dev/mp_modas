@@ -1,31 +1,47 @@
 # MP Modas
 
-Site institucional e vitrine digital da MP Modas.
+Site institucional e vitrine digital da MP Modas Concept.
 
-## Objetivo
+## Sobre o projeto
 
-Criar uma presenÁa digital premium, mobile-first e voltada ‡ apresentaÁ„o da loja, marcas, coleÁıes e canais de contato.
+Apresenta a loja, as sele√ß√µes masculina e feminina, as marcas, localiza√ß√£o e canais de contato.
 
-## DireÁ„o visual
-
-- Streetwear / skate
-- Premium
-- Mobile-first
-- Design autoral
-- Forte presenÁa das marcas comercializadas pela loja
-
-## Stack inicial
+## Stack
 
 - HTML5
 - CSS3
-- JavaScript
+- JavaScript Vanilla
+- GitHub Pages
 
-## Estrutura
+## Caracter√≠sticas
 
-- assets/css
-- assets/js
-- assets/img
+- Responsivo e mobile-first
+- Acessibilidade b√°sica
+- Menu mobile acess√≠vel
+- Carrossel com swipe
+- Imagens WebP otimizadas
+- SEO t√©cnico b√°sico
+
+## P√°ginas
+
+- Home
+- Masculino
+- Feminino
+- Marcas
+- A Loja
+
+## Execu√ß√£o local
+
+```bash
+python -m http.server 5500
+```
+
+Acesse `http://localhost:5500/`.
+
+## Publica√ß√£o
+
+Publicado no GitHub Pages: https://maicon-oliveira-dev.github.io/mp_modas/
 
 ## Status
 
-Projeto em desenvolvimento.
+V1 conclu√≠da ‚Äî site institucional publicado.
