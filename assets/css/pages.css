@@ -432,7 +432,7 @@
 
 .feminino-hero {
     position: relative;
-    min-height: clamp(34rem, 48vw, 44rem);
+    min-height: clamp(30rem, 38vw, 36rem);
     overflow: hidden;
     background: #d6cbc4;
     color: var(--color-ink);
@@ -466,9 +466,9 @@
     z-index: 1;
     display: grid;
     align-content: center;
-    gap: var(--space-5);
+    gap: var(--space-4);
     min-height: inherit;
-    padding-block: clamp(var(--space-8), 10vw, 8rem);
+    padding-block: clamp(var(--space-7), 6vw, 5rem);
 }
 
 .feminino-hero__eyebrow,
@@ -612,6 +612,8 @@
 }
 
 .feminino-product__caption {
+    display: grid;
+    gap: 0.35rem;
     padding-top: 0.75rem;
 }
 
@@ -621,6 +623,28 @@
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+}
+
+.feminino-product__price {
+    margin: 0;
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+}
+
+.feminino-product__caption a {
+    width: fit-content;
+    margin-top: 0.15rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid currentColor;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.feminino-product__caption a:hover,
+.feminino-product__caption a:focus-visible {
+    color: var(--color-brand-dark);
 }
 
 @media (min-width: 48rem) {
@@ -652,7 +676,7 @@
 
 @media (max-width: 47.999rem) {
     .feminino-hero {
-        min-height: clamp(33rem, 92svh, 40rem);
+        min-height: clamp(27rem, 76svh, 32rem);
     }
 
     .feminino-hero__media img {
@@ -665,7 +689,7 @@
 
     .feminino-hero__content {
         align-content: start;
-        padding-top: clamp(3.5rem, 14vw, 5rem);
+        padding-block: clamp(2.5rem, 10vw, 3.5rem);
     }
 
     .feminino-hero__title {
@@ -697,7 +721,7 @@
 
 @media (min-width: 48rem) {
     .feminino-hero {
-        min-height: clamp(36rem, 52vw, 46rem);
+        min-height: clamp(30rem, 38vw, 36rem);
     }
 
     .feminino-hero__media img {
