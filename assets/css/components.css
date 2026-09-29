@@ -142,6 +142,81 @@
     outline-color: var(--color-brand-green);
 }
 
+.mobile-submenu__row {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid var(--color-border-dark);
+}
+
+.mobile-submenu__row .mobile-menu__link {
+    flex: 1;
+    border-bottom: 0;
+}
+
+.mobile-submenu__toggle {
+    display: grid;
+    width: 3.5rem;
+    place-items: center;
+    border: 0;
+    border-left: 1px solid var(--color-border-dark);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: var(--text-xl);
+}
+
+.mobile-submenu__toggle:hover,
+.mobile-submenu__toggle:focus-visible {
+    color: var(--color-brand-green);
+}
+
+.mobile-submenu__toggle:focus-visible {
+    outline-color: var(--color-brand-green);
+}
+
+.mobile-submenu__toggle span {
+    transition: transform var(--transition-fast);
+}
+
+.mobile-submenu__toggle[aria-expanded="true"] span {
+    transform: rotate(45deg);
+}
+
+.mobile-submenu__list {
+    padding: var(--space-2) 0 var(--space-3);
+    border-bottom: 1px solid var(--color-border-dark);
+}
+
+.mobile-submenu__link {
+    display: flex;
+    min-height: 2.75rem;
+    align-items: center;
+    padding-left: var(--space-4);
+    color: var(--color-ink-inverse-muted);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.mobile-submenu__link:hover,
+.mobile-submenu__link:focus-visible {
+    color: var(--color-brand-green);
+}
+
+.mobile-submenu__link:focus-visible {
+    outline-color: var(--color-brand-green);
+}
+
+.mobile-submenu__label {
+    padding: var(--space-3) var(--space-4) var(--space-1);
+    color: var(--color-ink-inverse-muted);
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
 .button {
     display: inline-flex;
     min-height: 2.75rem;
@@ -318,8 +393,11 @@
     }
 
     .site-nav {
+        position: absolute;
+        left: 50%;
         display: block;
-        margin-left: auto;
+        margin-left: 0;
+        transform: translateX(-50%);
     }
 
     .site-nav__list {
@@ -343,6 +421,96 @@
 
     .site-nav__link:focus-visible {
         outline-color: var(--color-brand-green);
+    }
+
+    .site-nav__item--has-mega {
+        position: relative;
+    }
+
+    .mega-menu {
+        position: absolute;
+        z-index: 1;
+        top: calc(100% + 2.25rem);
+        left: 50%;
+        width: min(46rem, calc(100vw - 3rem));
+        transform: translateX(-50%);
+        border: 1px solid var(--color-border);
+        background: var(--color-surface);
+        color: var(--color-ink);
+        box-shadow: 0 .6rem 1.5rem rgb(0 0 0 / 8%);
+    }
+
+    .mega-menu__inner {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-6);
+        padding: var(--space-4) var(--space-5);
+    }
+
+    .mega-menu__group {
+        display: grid;
+        gap: var(--space-2);
+    }
+
+    .mega-menu__label {
+        margin: 0;
+        color: var(--color-ink-muted);
+        font-size: .68rem;
+        font-weight: 800;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+    }
+
+    .mega-menu__list {
+        display: grid;
+        gap: .35rem;
+    }
+
+    .mega-menu__link {
+        width: fit-content;
+        color: var(--color-ink);
+        font-size: var(--text-sm);
+        font-weight: 700;
+        transition: color var(--transition-fast);
+    }
+
+    .mega-menu__link:hover,
+    .mega-menu__link:focus-visible {
+        color: var(--color-brand-green);
+    }
+
+    .mega-menu__link:focus-visible {
+        outline-color: var(--color-brand-green);
+    }
+
+    .mega-menu__group:last-child .mega-menu__link {
+        color: var(--color-ink-muted);
+        font-weight: 600;
+        opacity: .82;
+    }
+
+    .mega-menu__group:last-child .mega-menu__link:hover,
+    .mega-menu__group:last-child .mega-menu__link:focus-visible {
+        color: var(--color-brand-green);
+        opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .mega-menu:not([hidden]) {
+            animation: mega-menu-enter 150ms ease-out;
+        }
+    }
+
+    @keyframes mega-menu-enter {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -4px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(-50%);
+        }
     }
 
     .menu-button,
