@@ -9,7 +9,7 @@
 
 .site-header__inner {
     display: flex;
-    min-height: 5.5rem;
+    min-height: 4.75rem;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
@@ -22,7 +22,7 @@
 
 .site-brand__logo {
     display: block;
-    width: 3.5rem;
+    width: 3.05rem;
     height: auto;
 }
 
@@ -39,7 +39,7 @@
     width: 2.75rem;
     height: 2.75rem;
     place-items: center;
-    border: 1px solid var(--color-border-dark);
+    border: 0;
     border-radius: 0;
     background: transparent;
     color: var(--color-ink-inverse);
@@ -101,37 +101,40 @@
 .mobile-menu {
     position: fixed;
     z-index: var(--z-menu);
-    inset: 5.5rem 0 0;
+    inset: 4.75rem 0 0;
     overflow-y: auto;
-    border-top: 1px solid var(--color-border-dark);
-    background: var(--color-brand-black);
-    color: var(--color-ink-inverse);
+    background: rgb(0 0 0 / 42%);
+    color: var(--color-ink);
 }
 
-.mobile-menu__inner {
-    padding-block: var(--space-5);
-}
+.mobile-menu__inner { width: min(86vw, 24rem); min-height: 100%; margin: 0; padding: 1.15rem 1.5rem 2rem; border-right: 1px solid var(--color-border-strong); background: var(--color-surface); box-shadow: .8rem 0 2rem rgb(0 0 0 / 18%); }
+.mobile-menu__brand { display: inline-flex; width: 3.25rem; margin: .15rem 0 1.25rem; }
+.mobile-menu__brand img { display: block; width: 100%; height: auto; }
+.mobile-menu__brand:focus-visible { outline-color: var(--color-brand-black); }
 
 .mobile-menu__list {
-    border-top: 1px solid var(--color-border-dark);
+    border-top: 1px solid var(--color-border);
 }
 
 .mobile-menu__link {
     display: flex;
-    min-height: 3.5rem;
+    min-height: 3.65rem;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid var(--color-border-dark);
+    border-bottom: 1px solid var(--color-border);
     font-family: var(--font-display);
-    font-size: var(--text-xl);
-    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: .035em;
     text-transform: uppercase;
     transition: color var(--transition-fast), padding-left var(--transition-fast);
 }
 
 .mobile-menu__link:hover,
 .mobile-menu__link:focus-visible {
-    color: var(--color-brand-green);
+    color: var(--color-brand-dark);
+    background: var(--color-surface-raised);
 }
 
 .mobile-menu__link:hover {
@@ -139,13 +142,13 @@
 }
 
 .mobile-menu__link:focus-visible {
-    outline-color: var(--color-brand-green);
+    outline-color: var(--color-brand-black);
 }
 
 .mobile-submenu__row {
     display: flex;
     align-items: stretch;
-    border-bottom: 1px solid var(--color-border-dark);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .mobile-submenu__row .mobile-menu__link {
@@ -158,20 +161,21 @@
     width: 3.5rem;
     place-items: center;
     border: 0;
-    border-left: 1px solid var(--color-border-dark);
+    border-left: 1px solid var(--color-border);
     background: transparent;
-    color: inherit;
+    color: var(--color-ink-muted);
     font: inherit;
     font-size: var(--text-xl);
 }
 
 .mobile-submenu__toggle:hover,
 .mobile-submenu__toggle:focus-visible {
-    color: var(--color-brand-green);
+    color: var(--color-ink);
+    background: var(--color-surface-raised);
 }
 
 .mobile-submenu__toggle:focus-visible {
-    outline-color: var(--color-brand-green);
+    outline-color: var(--color-brand-black);
 }
 
 .mobile-submenu__toggle span {
@@ -184,7 +188,8 @@
 
 .mobile-submenu__list {
     padding: var(--space-2) 0 var(--space-3);
-    border-bottom: 1px solid var(--color-border-dark);
+    border-bottom: 1px solid var(--color-border);
+    background: #fafaf8;
 }
 
 .mobile-submenu__link {
@@ -192,7 +197,7 @@
     min-height: 2.75rem;
     align-items: center;
     padding-left: var(--space-4);
-    color: var(--color-ink-inverse-muted);
+    color: var(--color-ink-muted);
     font-size: var(--text-sm);
     font-weight: 700;
     letter-spacing: .04em;
@@ -201,20 +206,51 @@
 
 .mobile-submenu__link:hover,
 .mobile-submenu__link:focus-visible {
-    color: var(--color-brand-green);
+    color: var(--color-ink);
 }
 
 .mobile-submenu__link:focus-visible {
-    outline-color: var(--color-brand-green);
+    outline-color: var(--color-brand-black);
 }
 
 .mobile-submenu__label {
     padding: var(--space-3) var(--space-4) var(--space-1);
-    color: var(--color-ink-inverse-muted);
+    color: var(--color-ink-muted);
     font-size: .68rem;
     font-weight: 800;
     letter-spacing: .14em;
     text-transform: uppercase;
+}
+
+@media (max-width: 47.999rem) {
+    .site-header { border-bottom-color: var(--color-border-strong); background: var(--color-surface); color: var(--color-ink); box-shadow: 0 1px 0 rgb(0 0 0 / 5%); }
+    .site-brand:focus-visible, .menu-button:focus-visible { outline-color: var(--color-brand-black); }
+    .menu-button { color: var(--color-ink); }
+    .menu-button:hover { border-color: transparent; color: var(--color-ink); background: var(--color-surface-raised); }
+    .catalog__filter-nav { display: none; }
+
+    .site-footer__actions {
+        width: min(100%, 15rem);
+        gap: .4rem;
+    }
+
+    .site-footer__action {
+        min-height: 2.75rem;
+        grid-template-columns: 1rem 1fr auto;
+        gap: .55rem;
+        padding: .45rem .625rem;
+        font-size: .66rem;
+        letter-spacing: .05em;
+    }
+
+    .site-footer__action svg {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .site-footer__action b {
+        font-size: .9rem;
+    }
 }
 
 .button {
@@ -363,6 +399,64 @@
     text-transform: uppercase;
 }
 
+.site-footer__actions {
+    display: grid;
+    width: min(100%, 17rem);
+    gap: .5rem;
+}
+
+.site-footer__action {
+    display: grid;
+    min-height: 2.875rem;
+    grid-template-columns: 1.1rem 1fr auto;
+    align-items: center;
+    gap: .625rem;
+    padding: .5rem .7rem;
+    border: 1px solid rgb(255 255 255 / 22%);
+    border-radius: .2rem;
+    background: rgb(255 255 255 / 4%);
+    color: var(--color-ink-inverse);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.site-footer__action svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+.site-footer__action--whatsapp svg {
+    fill: currentColor;
+    stroke: none;
+}
+
+.site-footer__action b {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.site-footer__action:hover {
+    border-color: var(--color-brand-green);
+    background: var(--color-brand-green);
+    color: var(--color-brand-black);
+    transform: translateY(-2px);
+}
+
+.site-footer__action:focus-visible {
+    outline: 2px solid var(--color-brand-green);
+    outline-offset: 3px;
+}
+
 .site-footer__bottom {
     background: var(--color-brand-dark);
 }
@@ -381,7 +475,7 @@
 
 @media (min-width: 48rem) {
     .site-header__inner {
-        min-height: 6rem;
+        min-height: 5rem;
     }
 
     .site-brand {
@@ -403,21 +497,29 @@
     .site-nav__list {
         display: flex;
         align-items: center;
-        gap: var(--space-6);
+        gap: clamp(1.5rem, 2.6vw, 2.5rem);
     }
 
     .site-nav__link {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        min-height: 5rem;
         color: var(--color-ink-inverse-muted);
-        font-size: var(--text-sm);
+        font-size: .78rem;
         font-weight: 700;
-        letter-spacing: 0.04em;
+        letter-spacing: .055em;
         text-transform: uppercase;
         transition: color var(--transition-fast);
     }
 
-    .site-nav__link:hover {
+    .site-nav__link::after { content: ""; position: absolute; right: 0; bottom: 1.05rem; left: 0; height: 2px; transform: scaleX(0); transform-origin: center; background: var(--color-brand-green); transition: transform var(--transition-fast); }
+
+    .site-nav__link:hover, .site-nav__link[aria-current="page"] {
         color: var(--color-brand-green);
     }
+
+    .site-nav__link:hover::after, .site-nav__link[aria-current="page"]::after { transform: scaleX(1); }
 
     .site-nav__link:focus-visible {
         outline-color: var(--color-brand-green);

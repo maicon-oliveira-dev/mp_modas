@@ -778,13 +778,15 @@
 .catalog__heading { display: flex; align-items: end; justify-content: space-between; gap: var(--space-4); }
 .catalog__heading h2 { margin: var(--space-2) 0 0; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: .9; letter-spacing: -.06em; text-transform: uppercase; }
 .catalog__count { margin: 0; color: var(--color-ink-muted); font-size: var(--text-sm); }
-.catalog__filter-nav { display: grid; gap: .5rem; margin-top: var(--space-5); overflow-x: auto; scrollbar-width: none; }
-.catalog__filter-nav--brands { margin-top: var(--space-3); padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border-strong); }
+.catalog__filter-nav { position: sticky; z-index: calc(var(--z-header) - 1); display: grid; gap: .22rem; margin-top: var(--space-5); padding: .5rem 0 .35rem; overflow-x: auto; border-bottom: 1px solid transparent; background: var(--color-surface); box-shadow: none; scrollbar-width: none; transition: box-shadow var(--transition-fast), border-color var(--transition-fast); }
+.catalog__filter-nav:first-of-type { top: 5.5rem; }
+.catalog__filter-nav--brands { top: 8.47rem; margin-top: 0; padding-top: .35rem; padding-bottom: .5rem; }
+.catalog__filter-nav.is-stuck { border-color: var(--color-brand-black); box-shadow: 0 7px 15px rgb(0 0 0 / 7%); }
 .catalog__filter-nav::-webkit-scrollbar { display: none; }
-.catalog__filter-label { margin: 0; color: var(--color-ink-muted); font-size: .66rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-.catalog__filter-list { display: flex; width: max-content; gap: clamp(1.15rem, 2.4vw, 2rem); margin: 0; padding: 0; list-style: none; }
-.catalog__filter-link { display: inline-block; padding-bottom: .3rem; border-bottom: 1px solid transparent; color: var(--color-ink-muted); font-size: var(--text-sm); font-weight: 600; letter-spacing: .025em; white-space: nowrap; }
-.catalog__filter-link:hover, .catalog__filter-link:focus-visible { color: var(--color-brand-dark); }
+.catalog__filter-label { margin: 0; color: var(--color-ink-muted); font-size: .6rem; font-weight: 800; line-height: 1; letter-spacing: .13em; text-transform: uppercase; }
+.catalog__filter-list { display: flex; width: max-content; gap: clamp(.9rem, 1.8vw, 1.5rem); margin: 0; padding: 0; list-style: none; }
+.catalog__filter-link { display: inline-block; padding: .18rem 0; border-bottom: 1px solid transparent; color: var(--color-ink-muted); font-size: .78rem; font-weight: 600; line-height: 1.2; letter-spacing: .02em; white-space: nowrap; }
+.catalog__filter-link:hover, .catalog__filter-link:focus-visible { border-color: var(--color-brand-green); color: var(--color-brand-black); font-weight: 800; }
 .catalog__filter-link[aria-current="page"] { border-color: var(--color-brand-green); color: var(--color-ink); font-weight: 800; }
 .catalog__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.35rem, 2vw, 1.9rem) clamp(.75rem, 1.5vw, 1.15rem); padding-top: var(--space-5); }
 .product-card { min-width: 0; }
@@ -802,10 +804,18 @@
 .catalog-contact > .container { display: grid; gap: var(--space-6); align-items: center; padding-block: clamp(3.5rem, 7vw, 6rem); }
 .catalog-contact h2 { max-width: 17ch; margin: var(--space-3) 0 0; font-size: clamp(2rem, 4vw, 3.75rem); line-height: .98; letter-spacing: -.05em; }
 .catalog-contact .button { width: fit-content; border-color: var(--color-brand-green); background: var(--color-brand-green); color: var(--color-ink); }
+.whatsapp-float { position: fixed; z-index: calc(var(--z-header) - 2); right: clamp(1rem, 2.5vw, 1.75rem); bottom: clamp(1rem, 2.5vw, 1.75rem); display: grid; width: 3rem; height: 3rem; place-items: center; border: 2px solid rgb(255 255 255 / 88%); border-radius: 50%; background: #25b94d; color: #fff; box-shadow: 0 .45rem 1.1rem rgb(0 0 0 / 19%), inset 0 1px 0 rgb(255 255 255 / 19%); transition: transform var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast); }
+.whatsapp-float svg { width: 1.55rem; height: 1.55rem; fill: currentColor; }
+.whatsapp-float:hover { background: #169e3d; box-shadow: 0 .6rem 1.3rem rgb(0 0 0 / 24%), inset 0 1px 0 rgb(255 255 255 / 19%); transform: translateY(-2px); }
+.whatsapp-float:focus-visible { outline: 3px solid var(--color-brand-black); outline-offset: 3px; }
 @media (prefers-reduced-motion: no-preference) { .product-card:hover .product-card__image img { transform: scale(1.018); } }
 @media (min-width: 48rem) { .catalog__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .catalog-contact > .container { grid-template-columns: 1fr auto; } }
+@media (min-width: 48rem) { .catalog__filter-nav:first-of-type { top: 5rem; } .catalog__filter-nav--brands { top: 7.97rem; } }
+@media (min-width: 48rem) { .catalog__filter-nav { grid-template-columns: 4.65rem minmax(0, 1fr); align-items: center; gap: 1rem; margin-inline: -.75rem; padding: .55rem .75rem; overflow: visible; } .catalog__filter-nav.is-stuck { border-inline: 1px solid var(--color-brand-black); } .catalog__filter-nav:first-of-type.is-stuck { border-top-color: var(--color-brand-black); } .catalog__filter-nav--brands { top: 7.65rem; padding-block: .5rem .6rem; } .catalog__filter-nav--brands.is-stuck { border-bottom-color: var(--color-brand-black); } .catalog__filter-label { padding-left: .1rem; } .catalog__filter-list { width: 100%; min-width: 0; justify-content: space-between; gap: .7rem; padding-right: .9rem; overflow-x: auto; scrollbar-width: none; } .catalog__filter-list::-webkit-scrollbar { display: none; } .catalog__filter-link { flex: 0 0 auto; padding-block: .3rem; font-size: .73rem; } }
 @media (min-width: 75rem) { .catalog__grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
-@media (max-width: 47.999rem) { .catalog-hero { min-height: 27rem; height: auto; } .catalog-hero h1 { font-size: clamp(2.5rem, 10vw, 3.25rem); } .catalog-hero > img { object-position: 63% center; } .catalog-hero__shade { background: linear-gradient(90deg, rgb(0 0 0 / 77%), rgb(0 0 0 / 25%) 85%); } }
+@media (max-width: 47.999rem) { .catalog-hero { min-height: 27rem; height: auto; } .catalog-hero h1 { font-size: clamp(2.5rem, 10vw, 3.25rem); } .catalog-hero > img { object-position: 63% center; } .catalog-hero__shade { background: linear-gradient(90deg, rgb(0 0 0 / 77%), rgb(0 0 0 / 25%) 85%); } .catalog__filter-nav { display: none; } }
+@media (max-width: 47.999rem) { .whatsapp-float { width: 3.15rem; height: 3.15rem; right: 1rem; bottom: 1rem; } }
+@media (prefers-reduced-motion: reduce) { .whatsapp-float { transition: none; } .whatsapp-float:hover { transform: none; } }
 /* =========================
    FEMININO — DIVISOR EDITORIAL
    ========================= */

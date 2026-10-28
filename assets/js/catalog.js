@@ -66,4 +66,14 @@
     catalog.querySelectorAll("[data-brand-link]").forEach(link => {
         const value = link.dataset.brandLink; link.href = url(activeCategory, value); link.toggleAttribute("aria-current", value === activeBrand);
     });
+    const filterNavs = [...catalog.querySelectorAll(".catalog__filter-nav")];
+    const updateStickyAppearance = () => {
+        filterNavs.forEach(nav => {
+            const stickyTop = parseFloat(getComputedStyle(nav).top);
+            nav.classList.toggle("is-stuck", Math.abs(nav.getBoundingClientRect().top - stickyTop) < 1.5);
+        });
+    };
+    updateStickyAppearance();
+    window.addEventListener("scroll", updateStickyAppearance, { passive: true });
+    window.addEventListener("resize", updateStickyAppearance);
 }());
