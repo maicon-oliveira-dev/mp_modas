@@ -7,21 +7,23 @@
     const empty = catalog.querySelector(".catalog__empty");
     const params = new URLSearchParams(window.location.search);
     const categories = new Set(["all", "camiseta", "polo", "calcao", "calca", "moletom", "bone", "outros"]);
-    const brands = new Set(["all", "bivik", "broken-rules", "cavaleira", "elemento-zero", "hawaiian-dreams", "lee", "levis", "lucano", "mcd", "oceano", "ogochi", "red-nose", "sem-marca", "surfside-living", "texas", "tookas", "youngstyle"]);
+    const brands = new Set(["all", "bivik", "broken-rules", "cavaleira", "elemento-zero", "fox", "hawaiian-dreams", "lee", "levis", "lucano", "mcd", "oceano", "ogochi", "red-nose", "sem-marca", "surfside-living", "texas", "tookas", "youngstyle"]);
     const base = "../assets/img/produtos-novos/";
     const names = {bivik:"Bivik","broken-rules":"Broken Rules",cavaleira:"Cavaleira","elemento-zero":"Elemento Zero","hawaiian-dreams":"Hawaiian Dreams",lee:"Lee",levis:"Levi’s",lucano:"Lucano",mcd:"MCD",oceano:"Oceano",ogochi:"Ogochi","red-nose":"Red Nose","sem-marca":"Sem marca","surfside-living":"Surfside Living",texas:"Texas",tookas:"Tookas",youngstyle:"Youngstyle"};
-    const prefixes = {camiseta:"CAM",polo:"POL",calcao:"CALCAO",calca:"CAL",moletom:"MOL",bone:"BONE",outros:"OUT"};
-    const numbers = {camiseta:0,polo:0,calcao:0,calca:0,moletom:0,bone:0,outros:0};
+    names.fox = "Fox";
+    const brandPrefixes = {bivik:"BIV","broken-rules":"BRK",cavaleira:"CAV","elemento-zero":"EZ",fox:"FOX","hawaiian-dreams":"HWD",lee:"LEE",levis:"LEV",lucano:"LUC",mcd:"MCD",oceano:"OCE",ogochi:"OGO","red-nose":"RDN","sem-marca":"SEM","surfside-living":"SSL",texas:"TEX",tookas:"TOO",youngstyle:"YNG"};
+    const brandNumbers = {bivik:0,"broken-rules":0,cavaleira:0,"elemento-zero":0,fox:0,"hawaiian-dreams":0,lee:10,levis:14,lucano:0,mcd:4,oceano:33,ogochi:20,"red-nose":0,"sem-marca":0,"surfside-living":0,texas:0,tookas:0,youngstyle:0};
     const additions = [];
     const add = (category, brand, name, path, subcategory = "") => {
-        numbers[category] += 1;
-        additions.push({category, brand, name, path, subcategory, ref: prefixes[category] + "-" + String(numbers[category]).padStart(3, "0")});
+        brandNumbers[brand] += 1;
+        additions.push({category, brand, name, path, subcategory, ref: brandPrefixes[brand] + "-" + String(brandNumbers[brand]).padStart(2, "0")});
     };
     const series = (category, brand, name, folder, prefix, total, ext = "jpeg") => {
         for (let i = 1; i <= total; i += 1) add(category, brand, name + " " + String(i).padStart(2, "0"), folder + "/" + prefix + String(i).padStart(2, "0") + "." + ext);
     };
 
     [["elemento-zero",1],["hawaiian-dreams",2],["lee",1],["levis",1],["oceano",4],["ogochi",3],["youngstyle",2]].forEach(([brand,total]) => series("polo",brand,"Polo " + names[brand],"polos/" + brand,brand + "-polo-",total));
+    series("camiseta","fox","Camiseta Fox","camisetas/fox","fox-camiseta-",11,"png");
     [["bivik",3],["broken-rules",1],["hawaiian-dreams",14],["lee",1],["mcd",7],["oceano",21],["ogochi",34],["texas",8],["tookas",2]].forEach(([brand,total]) => series("calcao",brand,"Calção " + names[brand],"calcoes/" + brand,brand + "-calcao-",total));
     [1,2,3,4,5,6,8,9,10,11,12,15,16,20].forEach(i => add("calcao","youngstyle","Calção Youngstyle " + String(i).padStart(2,"0"),"calcoes/youngstyle/youngstyle-calcao-" + String(i).padStart(2,"0") + ".jpeg"));
     ["Ogochi.jpeg","Ogochi (2).jpeg","Ogochi (3).jpeg","Ogochi (4).jpeg","Ogochi (5).jpeg","Ogochi (6).jpeg","ogochi04.jpeg","ogochi05.jpeg"].forEach((file,i) => add("calcao","ogochi","Calção Ogochi " + String(i + 35).padStart(2,"0"),"caução/OGOCHI/" + file));
@@ -33,8 +35,17 @@
     [["levis","levis"],["lucano","lucano"],["oceano","oceano"],["red-nose","red-nose"],["surfside-living","surfside-living"]].forEach(([brand,folder]) => series("moletom",brand,"Moletom " + names[brand],"moletons/" + folder,folder + "-moletom-",1,"png"));
     [["cavaleira",11],["levis",3],["oceano",11]].forEach(([brand,total]) => series("bone",brand,"Boné " + names[brand],"bones/" + brand,brand + "-bone-",total));
     series("bone","ogochi","Boné Ogochi","bones/og","og-bone-",3);
+    series("bone","fox","Boné Fox","bones/fox","fox-bone-",4,"png");
+    series("moletom","fox","Moletom Fox","moletons/fox","fox-moletom-",3,"png");
     ["chinelo-Ogochi (1).jpeg","chinelo-Ogochi (2).jpeg","chinelo-Ogochi (3).jpeg"].forEach((file,i) => add("outros","ogochi","Chinelo Ogochi " + String(i + 1).padStart(2,"0"),"chinelo/" + file,"chinelo"));
     ["WhatsApp Image 2026-10-23 at 14.00.40.jpeg","WhatsApp Image 2026-10-23 at 14.00.55.jpeg","WhatsApp Image 2026-10-23 at 14.01.16.jpeg"].forEach((file,i) => add("outros","oceano","Kit Cueca Boxer Oceano — Variante " + String(i + 1).padStart(2,"0"),"cuecas/" + file,"cueca"));
+
+    series("camiseta","levis","Camiseta " + names.levis,"camisetas/levis","levis-camiseta-",2,"webp");
+    series("moletom","levis","Moletom " + names.levis,"moletons/levis","levis-moletom-",1,"webp");
+    series("camiseta","oceano","Camiseta Oceano","camisetas/oceano","oceano-camiseta-",2,"webp");
+    series("moletom","oceano","Moletom Oceano","moletons/oceano","oceano-moletom-",11,"webp");
+    series("outros","ogochi","Chinelo Ogochi","outros/ogochi","ogochi-outros-",3,"webp");
+    series("moletom","red-nose","Moletom Red Nose","moletons/red-nose","red-nose-moletom-",4,"webp");
 
     additions.forEach(product => {
         const card = document.createElement("article");
@@ -54,6 +65,17 @@
         if (brand !== "all") query.set("brand", brand);
         return "masculino.html" + (query.toString() ? "?" + query.toString() : "");
     };
+    const brandList = catalog.querySelector(".catalog__filter-nav--brands .catalog__filter-list");
+    if (brandList && !brandList.querySelector('[data-brand-link="fox"]')) {
+        const item = document.createElement("li");
+        const link = document.createElement("a");
+        link.className = "catalog__filter-link";
+        link.dataset.brandLink = "fox";
+        link.textContent = "Fox";
+        item.append(link);
+        const hawaiianDreams = brandList.querySelector('[data-brand-link="hawaiian-dreams"]');
+        brandList.insertBefore(item, hawaiianDreams?.closest("li") || null);
+    }
     products.forEach(product => {
         product.hidden = !((activeCategory === "all" || product.dataset.category === activeCategory) && (activeBrand === "all" || product.dataset.brand === activeBrand));
     });

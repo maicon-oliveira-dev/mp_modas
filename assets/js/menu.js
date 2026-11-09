@@ -4,194 +4,130 @@
     const desktopMedia = window.matchMedia("(min-width: 48rem)");
     const menuButton = document.querySelector(".menu-button");
     const mobileMenu = document.querySelector("#mobile-menu");
-    const mobileSubmenuToggle = mobileMenu?.querySelector(".mobile-submenu__toggle");
-    const mobileSubmenu = mobileMenu?.querySelector("#mobile-submenu-masculino");
-    const megaMenuItem = document.querySelector(".site-nav__item--has-mega");
-    const megaMenuTrigger = megaMenuItem?.querySelector(".site-nav__mega-trigger");
-    const megaMenu = megaMenuItem?.querySelector("#mega-menu-masculino");
-    let megaCloseTimer = null;
+    const mobileSubmenus = [...document.querySelectorAll(".mobile-submenu__toggle")]
+        .map(toggle => ({ toggle, panel: document.getElementById(toggle.getAttribute("aria-controls")) }))
+        .filter(item => item.panel);
+    const megaMenus = [...document.querySelectorAll(".site-nav__item--has-mega")]
+        .map(item => ({ item, trigger: item.querySelector(".site-nav__mega-trigger"), panel: item.querySelector(".mega-menu"), closeTimer: null }))
+        .filter(item => item.trigger && item.panel);
 
-    if (!menuButton || !mobileMenu) {
-        return;
-    }
+    if (!menuButton || !mobileMenu) return;
 
-    function getVisibleMenuLinks() {
-        return Array.from(mobileMenu.querySelectorAll("a[href]"))
-            .filter((link) => !link.closest("[hidden]"));
-    }
-
-    function isOpen() {
-        return !mobileMenu.hidden;
-    }
-
-    function setMenuState(open, options = {}) {
+    const visibleMobileControls = () => [...mobileMenu.querySelectorAll("a[href], button")]
+        .filter(control => !control.closest("[hidden]"));
+    const setMobileSubmenuState = (target, open) => {
+        target.panel.hidden = !open;
+        target.toggle.setAttribute("aria-expanded", String(open));
+        const label = target.toggle.dataset.submenuLabel || target.toggle.getAttribute("aria-label").replace(/^(Abrir|Fechar)\s+/, "") || "submenu";
+        target.toggle.setAttribute("aria-label", (open ? "Fechar " : "Abrir ") + label);
+    };
+    const closeMobileSubmenus = () => mobileSubmenus.forEach(item => setMobileSubmenuState(item, false));
+    const setMenuState = (open, options = {}) => {
         const { returnFocus = false, moveFocus = false } = options;
-
         mobileMenu.hidden = !open;
         menuButton.setAttribute("aria-expanded", String(open));
         menuButton.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
         document.body.classList.toggle("menu-open", open);
+        if (!open) closeMobileSubmenus();
+        if (open && moveFocus) visibleMobileControls()[0]?.focus();
+        if (!open && returnFocus) menuButton.focus();
+    };
 
-        if (open && moveFocus) {
-            getVisibleMenuLinks()[0]?.focus();
+    menuButton.addEventListener("click", () => {
+        const open = mobileMenu.hidden;
+        setMenuState(open, { moveFocus: open, returnFocus: !open });
+    });
+    mobileSubmenus.forEach(target => target.toggle.addEventListener("click", () => {
+        const open = target.panel.hidden;
+        if (open) mobileSubmenus.filter(item => item !== target).forEach(item => setMobileSubmenuState(item, false));
+        setMobileSubmenuState(target, open);
+    }));
+
+    const cancelMegaClose = target => {
+        if (target.closeTimer) {
+            window.clearTimeout(target.closeTimer);
+            target.closeTimer = null;
         }
-
-        if (!open && returnFocus) {
-            menuButton.focus();
+    };
+    const setMegaMenuState = (target, open, options = {}) => {
+        if (!desktopMedia.matches) return;
+        if (open) {
+            megaMenus.filter(item => item !== target).forEach(item => {
+                cancelMegaClose(item);
+                item.panel.hidden = true;
+                item.trigger.setAttribute("aria-expanded", "false");
+            });
+            cancelMegaClose(target);
         }
-    }
+        target.panel.hidden = !open;
+        target.trigger.setAttribute("aria-expanded", String(open));
+        if (!open && options.returnFocus) target.trigger.focus();
+    };
 
-    function toggleMenu() {
-        setMenuState(!isOpen(), { moveFocus: !isOpen(), returnFocus: isOpen() });
-    }
+    megaMenus.forEach(target => {
+        const scheduleClose = () => {
+            cancelMegaClose(target);
+            target.closeTimer = window.setTimeout(() => {
+                target.closeTimer = null;
+                setMegaMenuState(target, false);
+            }, 150);
+        };
+        target.item.addEventListener("pointerenter", () => setMegaMenuState(target, true));
+        target.item.addEventListener("pointerleave", scheduleClose);
+        target.item.addEventListener("focusin", () => setMegaMenuState(target, true));
+        target.item.addEventListener("focusout", () => window.setTimeout(() => {
+            if (desktopMedia.matches && !target.item.contains(document.activeElement)) setMegaMenuState(target, false);
+        }));
+        target.item.addEventListener("keydown", event => {
+            if (event.key === "Escape") {
+                event.preventDefault();
+                cancelMegaClose(target);
+                setMegaMenuState(target, false, { returnFocus: true });
+            }
+        });
+    });
 
-    function handleMenuKeydown(event) {
-        if (!isOpen()) {
-            return;
-        }
-
+    document.addEventListener("pointerdown", event => {
+        if (desktopMedia.matches) megaMenus.forEach(target => {
+            if (!target.item.contains(event.target)) {
+                cancelMegaClose(target);
+                setMegaMenuState(target, false);
+            }
+        });
+    });
+    mobileMenu.addEventListener("click", event => {
+        if (event.target.closest("a[href]")) setMenuState(false);
+    });
+    document.addEventListener("keydown", event => {
+        if (mobileMenu.hidden) return;
         if (event.key === "Escape") {
             event.preventDefault();
             setMenuState(false, { returnFocus: true });
             return;
         }
-
-        const menuLinks = getVisibleMenuLinks();
-        const firstMenuItem = menuLinks[0];
-        const lastMenuItem = menuLinks.at(-1);
-
-        if (event.key !== "Tab" || !firstMenuItem || !lastMenuItem) {
-            return;
-        }
-
-        if (event.shiftKey) {
-            if (document.activeElement === firstMenuItem) {
-                event.preventDefault();
-                menuButton.focus();
-            } else if (document.activeElement === menuButton) {
-                event.preventDefault();
-                lastMenuItem.focus();
-            }
-        } else if (document.activeElement === lastMenuItem) {
+        const controls = visibleMobileControls();
+        const first = controls[0];
+        const last = controls.at(-1);
+        if (event.key !== "Tab" || !first || !last) return;
+        if (event.shiftKey && (document.activeElement === first || document.activeElement === menuButton)) {
             event.preventDefault();
-            menuButton.focus();
-        } else if (document.activeElement === menuButton) {
+            (document.activeElement === first ? menuButton : last).focus();
+        } else if (!event.shiftKey && (document.activeElement === last || document.activeElement === menuButton)) {
             event.preventDefault();
-            firstMenuItem.focus();
-        }
-    }
-
-    menuButton.addEventListener("click", toggleMenu);
-
-    function setMobileSubmenuState(open) {
-        if (!mobileSubmenuToggle || !mobileSubmenu) {
-            return;
-        }
-
-        mobileSubmenu.hidden = !open;
-        mobileSubmenuToggle.setAttribute("aria-expanded", String(open));
-        mobileSubmenuToggle.setAttribute(
-            "aria-label",
-            open ? "Fechar submenu Masculino" : "Abrir submenu Masculino"
-        );
-    }
-
-    mobileSubmenuToggle?.addEventListener("click", () => {
-        setMobileSubmenuState(mobileSubmenu.hidden);
-    });
-
-    function setMegaMenuState(open, options = {}) {
-        const { returnFocus = false } = options;
-
-        if (!megaMenuItem || !megaMenuTrigger || !megaMenu || !desktopMedia.matches) {
-            return;
-        }
-
-        if (open) {
-            cancelMegaClose();
-        }
-
-        megaMenu.hidden = !open;
-        megaMenuTrigger.setAttribute("aria-expanded", String(open));
-
-        if (!open && returnFocus) {
-            megaMenuTrigger.focus();
-        }
-    }
-
-    function cancelMegaClose() {
-        if (megaCloseTimer) {
-            window.clearTimeout(megaCloseTimer);
-            megaCloseTimer = null;
-        }
-    }
-
-    function scheduleMegaClose() {
-        cancelMegaClose();
-        megaCloseTimer = window.setTimeout(() => {
-            megaCloseTimer = null;
-            setMegaMenuState(false);
-        }, 150);
-    }
-
-    function closeMegaMenuWhenFocusLeaves() {
-        window.setTimeout(() => {
-            if (
-                desktopMedia.matches &&
-                megaMenuItem &&
-                !megaMenuItem.contains(document.activeElement)
-            ) {
-                setMegaMenuState(false);
-            }
-        });
-    }
-
-    megaMenuItem?.addEventListener("pointerenter", () => setMegaMenuState(true));
-    megaMenuItem?.addEventListener("pointerleave", scheduleMegaClose);
-    megaMenuItem?.addEventListener("focusin", () => setMegaMenuState(true));
-    megaMenuItem?.addEventListener("focusout", closeMegaMenuWhenFocusLeaves);
-    megaMenuItem?.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-            event.preventDefault();
-            cancelMegaClose();
-            setMegaMenuState(false, { returnFocus: true });
+            (document.activeElement === last ? menuButton : first).focus();
         }
     });
-
-    document.addEventListener("pointerdown", (event) => {
-        if (
-            desktopMedia.matches &&
-            megaMenuItem &&
-            !megaMenuItem.contains(event.target)
-        ) {
-            cancelMegaClose();
-            setMegaMenuState(false);
-        }
-    });
-
-    mobileMenu.addEventListener("click", (event) => {
-        if (event.target.closest("a[href]")) {
-            setMenuState(false);
-        }
-    });
-
-    document.addEventListener("keydown", handleMenuKeydown);
-
-    desktopMedia.addEventListener("change", (event) => {
-        if (event.matches && isOpen()) {
-            setMenuState(false);
-        }
-
+    desktopMedia.addEventListener("change", event => {
         if (event.matches) {
-            cancelMegaClose();
-            setMobileSubmenuState(false);
-        } else if (megaMenu && !megaMenu.hidden) {
-            cancelMegaClose();
-            megaMenu.hidden = true;
-            megaMenuTrigger?.setAttribute("aria-expanded", "false");
+            if (!mobileMenu.hidden) setMenuState(false);
+            closeMobileSubmenus();
+        } else {
+            megaMenus.forEach(target => {
+                cancelMegaClose(target);
+                target.panel.hidden = true;
+                target.trigger.setAttribute("aria-expanded", "false");
+            });
         }
     });
-
     setMenuState(false);
-    setMobileSubmenuState(false);
-})();
+}());

@@ -227,7 +227,6 @@
     .site-brand:focus-visible, .menu-button:focus-visible { outline-color: var(--color-brand-black); }
     .menu-button { color: var(--color-ink); }
     .menu-button:hover { border-color: transparent; color: var(--color-ink); background: var(--color-surface-raised); }
-    .catalog__filter-nav { display: none; }
 
     .site-footer__actions {
         width: min(100%, 15rem);
@@ -534,7 +533,7 @@
         z-index: 1;
         top: calc(100% + 2.25rem);
         left: 50%;
-        width: min(46rem, calc(100vw - 3rem));
+        width: min(64rem, calc(100vw - 3rem));
         transform: translateX(-50%);
         border: 1px solid var(--color-border);
         background: var(--color-surface);
@@ -544,9 +543,28 @@
 
     .mega-menu__inner {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: var(--space-6);
         padding: var(--space-4) var(--space-5);
+    }
+
+    .mega-menu--feminino {
+        width: min(35rem, calc(100vw - 3rem));
+        border-color: color-mix(in srgb, #9c6a7d 35%, var(--color-border));
+    }
+
+    .mega-menu--feminino .mega-menu__inner {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-7);
+    }
+
+    .mega-menu--feminino .mega-menu__label {
+        color: #8c586c;
+    }
+
+    .mega-menu--feminino .mega-menu__link:hover,
+    .mega-menu--feminino .mega-menu__link:focus-visible {
+        color: #8c586c;
     }
 
     .mega-menu__group {

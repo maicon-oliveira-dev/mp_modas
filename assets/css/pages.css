@@ -586,12 +586,81 @@
     max-width: 52rem;
 }
 
+.feminino-catalog__filters {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: clamp(var(--space-6), 4vw, var(--space-7));
+    padding-block: var(--space-4);
+    border-block: 1px solid rgb(0 0 0 / 13%);
+}
+
+.feminino-catalog__filter-group {
+    display: grid;
+    grid-template-columns: 5.3rem minmax(0, 1fr);
+    align-items: start;
+    gap: var(--space-3);
+}
+
+.feminino-catalog__filter-group p,
+.feminino-catalog__filter-group ul,
+.feminino-catalog__count,
+.feminino-catalog__empty { margin: 0; }
+
+.feminino-catalog__filter-group p {
+    padding-top: .2rem;
+    font-family: "Manrope", "Helvetica Neue", Arial, sans-serif;
+    font-size: .67rem;
+    font-weight: 700;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+}
+
+.feminino-catalog__filter-group ul {
+    display: flex;
+    gap: .6rem 1rem;
+    min-width: 0;
+    overflow-x: auto;
+    padding-bottom: .25rem;
+    list-style: none;
+    scrollbar-width: thin;
+}
+
+.feminino-catalog__filter-group a {
+    display: inline-block;
+    flex: 0 0 auto;
+    padding-bottom: .2rem;
+    border-bottom: 1px solid transparent;
+    color: var(--color-ink-muted);
+    font-size: .78rem;
+    text-decoration: none;
+}
+
+.feminino-catalog__filter-group a:hover,
+.feminino-catalog__filter-group a:focus-visible,
+.feminino-catalog__filter-group a[aria-current="true"] {
+    border-color: currentColor;
+    color: var(--color-ink);
+}
+
+.feminino-catalog__count {
+    color: var(--color-ink-muted);
+    font-size: .78rem;
+}
+
+.feminino-catalog__empty {
+    padding-top: var(--space-6);
+    color: var(--color-ink-muted);
+    text-align: center;
+}
+
 .feminino-products {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(0.75rem, 3vw, 1.5rem);
     margin-top: clamp(var(--space-6), 4vw, var(--space-7));
 }
+
+.feminino-catalog__filters + .feminino-products { margin-top: var(--space-6); }
 
 .feminino-product {
     margin: 0;
@@ -813,7 +882,7 @@
 @media (min-width: 48rem) { .catalog__filter-nav:first-of-type { top: 5rem; } .catalog__filter-nav--brands { top: 7.97rem; } }
 @media (min-width: 48rem) { .catalog__filter-nav { grid-template-columns: 4.65rem minmax(0, 1fr); align-items: center; gap: 1rem; margin-inline: -.75rem; padding: .55rem .75rem; overflow: visible; } .catalog__filter-nav.is-stuck { border-inline: 1px solid var(--color-brand-black); } .catalog__filter-nav:first-of-type.is-stuck { border-top-color: var(--color-brand-black); } .catalog__filter-nav--brands { top: 7.65rem; padding-block: .5rem .6rem; } .catalog__filter-nav--brands.is-stuck { border-bottom-color: var(--color-brand-black); } .catalog__filter-label { padding-left: .1rem; } .catalog__filter-list { width: 100%; min-width: 0; justify-content: space-between; gap: .7rem; padding-right: .9rem; overflow-x: auto; scrollbar-width: none; } .catalog__filter-list::-webkit-scrollbar { display: none; } .catalog__filter-link { flex: 0 0 auto; padding-block: .3rem; font-size: .73rem; } }
 @media (min-width: 75rem) { .catalog__grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
-@media (max-width: 47.999rem) { .catalog-hero { min-height: 27rem; height: auto; } .catalog-hero h1 { font-size: clamp(2.5rem, 10vw, 3.25rem); } .catalog-hero > img { object-position: 63% center; } .catalog-hero__shade { background: linear-gradient(90deg, rgb(0 0 0 / 77%), rgb(0 0 0 / 25%) 85%); } .catalog__filter-nav { display: none; } }
+@media (max-width: 47.999rem) { .catalog-hero { min-height: 27rem; height: auto; } .catalog-hero h1 { font-size: clamp(2.5rem, 10vw, 3.25rem); } .catalog-hero > img { object-position: 63% center; } .catalog-hero__shade { background: linear-gradient(90deg, rgb(0 0 0 / 77%), rgb(0 0 0 / 25%) 85%); } .catalog__filter-nav { position: static; display: grid; margin-top: var(--space-4); padding-block: .5rem; overflow: visible; } .catalog__filter-nav--brands { margin-top: 0; } .catalog__filter-list { width: auto; max-width: 100%; gap: .85rem; padding-bottom: .2rem; overflow-x: auto; scrollbar-width: thin; } }
 @media (max-width: 47.999rem) { .whatsapp-float { width: 3.15rem; height: 3.15rem; right: 1rem; bottom: 1rem; } }
 @media (prefers-reduced-motion: reduce) { .whatsapp-float { transition: none; } .whatsapp-float:hover { transform: none; } }
 /* =========================
